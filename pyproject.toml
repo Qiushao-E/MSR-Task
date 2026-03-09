@@ -1,0 +1,11 @@
+[project]
+name = "msr-task"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "openai",
+    "requests",
+    "tqdm",
+    "vllm",
+]
