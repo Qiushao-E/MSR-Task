@@ -31,7 +31,7 @@ def load_tests():
             }
     return tests
 
-def run_test(code, test_code, entry_point):
+def run_test(code, test_code, entry_point, debug=False):
     """在 Docker 容器中运行测试"""
     test_program = f"{code}\n{test_code}\ncheck({entry_point})"
 
@@ -46,8 +46,16 @@ def run_test(code, test_code, entry_point):
             capture_output=True,
             timeout=5
         )
+        if debug and result.returncode != 0:
+            print(f"\n  Error: {result.stderr.decode()[:200]}")
         return result.returncode == 0
-    except:
+    except subprocess.TimeoutExpired:
+        if debug:
+            print("\n  Timeout")
+        return False
+    except Exception as e:
+        if debug:
+            print(f"\n  Exception: {e}")
         return False
     finally:
         os.unlink(temp_file)
@@ -70,7 +78,7 @@ def main():
 
         print(f"Testing {task_id}...", end=" ")
 
-        success = run_test(completion, test_info['test'], test_info['entry_point'])
+        success = run_test(completion, test_info['test'], test_info['entry_point'], debug=True)
 
         if success:
             passed += 1

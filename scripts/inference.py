@@ -5,7 +5,7 @@ import os
 from openai import OpenAI
 
 # 配置
-API_BASE = "http://localhost:8000/v1"
+API_BASE = "http://localhost:1024/v1"
 MODEL_NAME = "Qwen/Qwen2.5-Coder-0.5B-Instruct"
 INPUT_FILE = "datasets/humaneval/HumanEval.jsonl"
 OUTPUT_FILE = "outputs/humaneval_results.jsonl"
@@ -18,18 +18,32 @@ def load_humaneval():
             problems.append(json.loads(line))
     return problems
 
+def extract_code(text):
+    """从模型输出中提取代码"""
+    # 移除 markdown 代码块标记
+    if "```python" in text:
+        text = text.split("```python")[1].split("```")[0]
+    elif "```" in text:
+        text = text.split("```")[1].split("```")[0]
+    return text.strip()
+
 def generate_code(client, prompt):
     """调用模型生成代码"""
+    instruction = f"""Complete the following Python function. Only provide the complete function implementation, no explanations.
+
+{prompt}"""
+
     response = client.chat.completions.create(
         model=MODEL_NAME,
         messages=[
-            {"role": "system", "content": "You are a code completion assistant. Complete the given Python function."},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": instruction}
         ],
         max_tokens=512,
         temperature=0.0
     )
-    return response.choices[0].message.content
+
+    completion = response.choices[0].message.content
+    return extract_code(completion)
 
 def main():
     """主函数"""

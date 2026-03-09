@@ -12,12 +12,12 @@ uv sync
 uv run python scripts/serve_model.py
 ```
 
-服务将在 http://localhost:8000 启动
+服务将在 http://localhost:1024 启动
 
 ## 测试服务
 
 ```bash
-curl http://localhost:8000/v1/models
+curl http://localhost:1024/v1/models
 ```
 
 ## 运行推理
