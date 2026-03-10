@@ -7,8 +7,10 @@ dependencies = [
     "openai",
     "requests",
     "tqdm",
+    "vllm>=0.16.0",
 ]
 
 [[tool.uv.index]]
-name = "tuna"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+name = "tencent"
+url = "https://mirrors.cloud.tencent.com/pypi/simple/"
+default = true

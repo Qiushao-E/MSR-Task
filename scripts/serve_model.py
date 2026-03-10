@@ -21,11 +21,9 @@ cmd = [
     "--port", "8000",
     "--max-model-len", "4096",
     "--trust-remote-code",
-    "--device", "cpu",
-    "--dtype", "float32"
 ]
 
-print(f"启动 Docker 容器运行模型服务 (CPU): {MODEL_NAME}")
+print(f"启动 Docker 容器运行模型服务: {MODEL_NAME}")
 print(f"缓存目录: {CACHE_DIR}")
 print("服务地址: http://localhost:1024")
 
