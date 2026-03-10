@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
-"""启动 vLLM 模型服务 (Docker)"""
 import os
 import subprocess
 
 MODEL_NAME = "Qwen/Qwen2.5-Coder-0.5B-Instruct"
 CACHE_DIR = os.path.expanduser("~/.cache/huggingface")
 
-# 确保缓存目录存在
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 cmd = [
@@ -23,19 +20,17 @@ cmd = [
     "--trust-remote-code",
 ]
 
-print(f"启动 Docker 容器运行模型服务: {MODEL_NAME}")
-print(f"缓存目录: {CACHE_DIR}")
-print("服务地址: http://localhost:1024")
+print(f"Starting Docker container for model service: {MODEL_NAME}")
+print(f"Cache directory: {CACHE_DIR}")
+print("Service URL: http://localhost:1024")
 
-# 先停止并删除已存在的容器
 subprocess.run(["docker", "stop", "vllm-server"], capture_output=True)
 subprocess.run(["docker", "rm", "vllm-server"], capture_output=True)
 
-# 启动新容器
 result = subprocess.run(cmd, capture_output=True, text=True)
 if result.returncode == 0:
-    print(f"容器已启动: {result.stdout.strip()}")
-    print("\n查看日志: docker logs -f vllm-server")
-    print("停止服务: docker stop vllm-server")
+    print(f"Container started: {result.stdout.strip()}")
+    print("\nView logs: docker logs -f vllm-server")
+    print("Stop service: docker stop vllm-server")
 else:
-    print(f"启动失败: {result.stderr}")
+    print(f"Failed to start: {result.stderr}")

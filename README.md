@@ -2,7 +2,7 @@
 
 ## 环境设置
 
-1. 安装依赖 (已完成):
+1. 安装依赖:
 ```bash
 uv sync
 ```
@@ -33,5 +33,3 @@ uv run python scripts/inference.py
 ```bash
 uv run python scripts/evaluate.py
 ```
-
-需要 Docker 环境来运行测试

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-"""HumanEval 评估脚本"""
 import json
 import subprocess
 import tempfile
@@ -10,7 +8,6 @@ INPUT_FILE = "outputs/humaneval_results.jsonl"
 DATASET_FILE = "datasets/humaneval/HumanEval.jsonl"
 
 def load_results():
-    """加载推理结果"""
     results = {}
     with open(INPUT_FILE, 'r') as f:
         for line in f:
@@ -19,7 +16,6 @@ def load_results():
     return results
 
 def load_tests():
-    """加载测试用例"""
     tests = {}
     with open(DATASET_FILE, 'r') as f:
         for line in f:
@@ -32,7 +28,6 @@ def load_tests():
     return tests
 
 def run_test(code, test_code, entry_point, debug=False):
-    """在 Docker 容器中运行测试"""
     test_program = f"{code}\n{test_code}\ncheck({entry_point})"
 
     with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
@@ -61,7 +56,6 @@ def run_test(code, test_code, entry_point, debug=False):
         os.unlink(temp_file)
 
 def main():
-    """主函数"""
     results = load_results()
     tests = load_tests()
 
