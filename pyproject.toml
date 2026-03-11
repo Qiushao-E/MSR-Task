@@ -7,7 +7,7 @@ dependencies = [
     "openai",
     "requests",
     "tqdm",
-    "vllm>=0.16.0",
+    "vllm",
 ]
 
 [[tool.uv.index]]

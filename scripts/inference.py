@@ -2,8 +2,9 @@ import json
 import os
 from openai import OpenAI
 
-API_BASE = "http://localhost:1024/v1"
+API_BASE = "http://localhost:3344/v1"
 MODEL_NAME = "Qwen/Qwen2.5-Coder-0.5B-Instruct"
+# MODEL_NAME = "/hub/models--Qwen--Qwen2.5-Coder-0.5B-Instruct/snapshots/ea3f2471cf1b1f0db85067f1ef93848e38e88c25"
 INPUT_FILE = "datasets/humaneval/HumanEval.jsonl"
 OUTPUT_FILE = "outputs/humaneval_results.jsonl"
 

@@ -1,4 +1,4 @@
-# Qwen2.5-Coder HumanEval 评估
+# Qwen2.5-Coder-0.5B-Instruct HumanEval 评估
 
 ## 环境设置
 
@@ -8,16 +8,22 @@ uv sync
 ```
 
 2. 启动模型服务:
+
+需要docker环境启动服务，使用vllm/vllm-openai:latest镜像
 ```bash
 uv run python scripts/serve_model.py
 ```
+或者在本地启动服务
+```bash
+uv run python scripts/serve_model_local.py
+```
 
-服务将在 http://localhost:1024 启动
+服务将在 http://localhost:3344 启动
 
 ## 测试服务
 
 ```bash
-curl http://localhost:1024/v1/models
+curl http://localhost:3344/v1/models
 ```
 
 ## 运行推理
