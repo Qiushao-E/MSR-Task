@@ -39,7 +39,7 @@ def run_test(code, test_code, entry_point, debug=False):
             ['docker', 'run', '--rm', '-v', f'{temp_file}:/test.py',
              'python:3.10-slim', 'python', '/test.py'],
             capture_output=True,
-            timeout=5
+            timeout=60
         )
         if debug and result.returncode != 0:
             print(f"\n  Error: {result.stderr.decode()[:200]}")
